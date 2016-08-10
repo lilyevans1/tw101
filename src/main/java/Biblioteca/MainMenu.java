@@ -30,11 +30,23 @@ public class MainMenu {
         printStream.println("1. List library books");
     }
 
-    public void executeUserInput() throws IOException {
-        String choice = reader.readLine();
+    public void executeUserInput() {
+        String choice = getUserInput();
 
         if (choice.equals("1")) {
             biblioteca.printBookList();
+        } else {
+            printStream.println("Select a valid option!");
         }
+    }
+
+    private String getUserInput() {
+        String choice = null;
+        try {
+            choice = reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return choice;
     }
 }

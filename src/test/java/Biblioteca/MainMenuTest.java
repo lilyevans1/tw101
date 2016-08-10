@@ -40,11 +40,19 @@ public class MainMenuTest {
     }
 
     @Test
-    public void shouldPrintBookListWhenInputIsOne() throws Exception {
+    public void shouldPrintBookListWhenInputIsOne() throws IOException {
         when(reader.readLine()).thenReturn("1");
         menu.executeUserInput();
 
         verify(reader).readLine();
         verify(biblioteca).printBookList();
+    }
+
+    @Test
+    public void shouldNotifyUserWhenInputIsInvalid() throws IOException {
+        when(reader.readLine()).thenReturn("");
+        menu.executeUserInput();
+
+        verify(printStream).println("Select a valid option!");
     }
 }
