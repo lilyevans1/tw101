@@ -15,10 +15,11 @@ public class MainMenu {
         this.reader = input;
     }
 
-    public void start() throws IOException {
+    public void run() throws IOException {
         printWelcome();
         printOptionsList();
         executeUserInput();
+        printGoodbye();
     }
 
     public void printWelcome() {
@@ -28,16 +29,22 @@ public class MainMenu {
     public void printOptionsList() {
         printStream.println("Please choose one of the following options: ");
         printStream.println("1. List library books");
+        printStream.println("2. Quit");
     }
 
     public void executeUserInput() {
         String choice = getUserInput();
 
-        if (choice.equals("1")) {
-            biblioteca.printBookList();
-        } else {
-            printStream.println("Select a valid option!");
-            executeUserInput();
+        while(!choice.equals("2")) {
+            if (choice.equals("1")) {
+                biblioteca.printBookList();
+            } else {
+                printStream.println("Select a valid option!");
+            }
+
+            printStream.println();
+            printOptionsList();
+            choice = getUserInput();
         }
     }
 
@@ -49,5 +56,9 @@ public class MainMenu {
             e.printStackTrace();
         }
         return choice;
+    }
+
+    public void printGoodbye() {
+        printStream.println("Goodbye!");
     }
 }

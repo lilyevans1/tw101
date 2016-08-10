@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.nio.Buffer;
 import java.util.ArrayList;
 
 public class Main {
@@ -16,7 +15,7 @@ public class Main {
         Biblioteca biblioteca = setupBiblioteca(printStream);
 
         MainMenu menu = new MainMenu(printStream, reader, biblioteca);
-        menu.start();
+        menu.run();
     }
 
     private static Biblioteca setupBiblioteca(PrintStream printStream) {
