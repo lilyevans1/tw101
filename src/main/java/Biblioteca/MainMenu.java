@@ -37,6 +37,7 @@ public class MainMenu {
             biblioteca.printBookList();
         } else {
             printStream.println("Select a valid option!");
+            executeUserInput();
         }
     }
 

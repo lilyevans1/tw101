@@ -7,9 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class MainMenuTest {
 
@@ -50,9 +48,17 @@ public class MainMenuTest {
 
     @Test
     public void shouldNotifyUserWhenInputIsInvalid() throws IOException {
-        when(reader.readLine()).thenReturn("");
+        when(reader.readLine()).thenReturn("", "1");
         menu.executeUserInput();
 
         verify(printStream).println("Select a valid option!");
+    }
+
+    @Test
+    public void shouldAskUserAgainWhenInputIsInvalid() throws Exception {
+        when(reader.readLine()).thenReturn("", "1");
+        menu.executeUserInput();
+
+        verify(reader, times(2)).readLine();
     }
 }
