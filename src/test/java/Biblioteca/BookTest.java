@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.io.PrintStream;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 public class BookTest {
@@ -30,5 +31,14 @@ public class BookTest {
     public void shouldPrintBookDetails(){
         book.print();
         verify(printStream).println(title + " | " + author + " | " + yearPublished);
+    }
+
+    @Test
+    public void shouldNotPrintBookDetailsWhenCheckedOut() {
+        book.checkOut();
+        book.print();
+
+        verify(printStream, times(0)).println();
+
     }
 }

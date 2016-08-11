@@ -16,6 +16,13 @@ public class Book {
     }
 
     public void print() {
+
+        // TODO: MODIFY THIS METHOD
         printStream.println(title + " | " + author + " | " + yearPublished);
+
+    }
+
+    public void checkOut() {
+        // TODO: FILL OUT THIS METHOD
     }
 }
