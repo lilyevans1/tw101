@@ -14,7 +14,7 @@ public class Main {
 
         Biblioteca biblioteca = setupBiblioteca(printStream);
 
-        MainMenu menu = new MainMenu(printStream, reader, biblioteca);
+        Menu menu = new Menu(printStream, reader, biblioteca);
         menu.run();
     }
 

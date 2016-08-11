@@ -15,10 +15,12 @@ public class Biblioteca {
     }
 
     public void printBookList() {
-        if (this.bookList.isEmpty())
+        if (this.bookList.isEmpty()) {
             printStream.println("There are no books.");
+        }
+
         for (Book book : bookList) {
-            book.print();
+            book.printBookDetails();
         }
     }
 }

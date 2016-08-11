@@ -10,38 +10,41 @@ import java.util.ArrayList;
 
 public class BibliotecaTests {
     private PrintStream printstream;
-    private Book book;
+    private Book book1;
+    private Book book2;
     private ArrayList<Book> books;
+    private Biblioteca biblioteca;
 
 
     @Before
     public void setup() {
         printstream = mock(PrintStream.class);
-        book = mock(Book.class);
+        book1 = mock(Book.class);
+        book2 = mock(Book.class);
         books = new ArrayList<Book>();
+        biblioteca = new Biblioteca(printstream, books);
     }
 
     @Test
     public void shouldPrintEmptyStringWhenLibraryEmpty() {
-        Biblioteca biblioteca = new Biblioteca(printstream, books);
         biblioteca.printBookList();
         verify(printstream).println("There are no books.");
     }
 
     @Test
     public void shouldPrintOneBookWhenLibraryHasOneBook() {
-        books.add(book);
-        Biblioteca biblioteca = new Biblioteca(printstream, books);
+        books.add(book1);
         biblioteca.printBookList();
-        verify(book).print();
+        verify(book1).printBookDetails();
     }
 
     @Test
     public void shouldPrintTwoBooksWhenLibraryHasTwoBooks() {
-        books.add(book);
-        books.add(book);
-        Biblioteca biblioteca = new Biblioteca(printstream, books);
+        books.add(book1);
+        books.add(book1);
         biblioteca.printBookList();
-        verify(book, times(2)).print();
+        verify(book1, times(2)).printBookDetails();
     }
+
+
 }

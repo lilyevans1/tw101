@@ -1,7 +1,6 @@
 package Biblioteca;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -10,11 +9,11 @@ import java.io.PrintStream;
 
 import static org.mockito.Mockito.*;
 
-public class MainMenuTest {
+public class MenuTest {
 
     private PrintStream printStream;
     private Biblioteca biblioteca;
-    private MainMenu menu;
+    private Menu menu;
     private BufferedReader reader;
 
     @Before
@@ -22,7 +21,7 @@ public class MainMenuTest {
         printStream = mock(PrintStream.class);
         reader = mock(BufferedReader.class);
         biblioteca = mock(Biblioteca.class);
-        menu = new MainMenu(printStream, reader, biblioteca);
+        menu = new Menu(printStream, reader, biblioteca);
     }
 
     @Test
@@ -38,16 +37,18 @@ public class MainMenuTest {
     }
 
     @Test
-    public void shouldPrintListBookOption(){
+    public void shouldPrintBookOptions(){
         menu.printOptionsList();
         verify(printStream).println("Please choose one of the following options: ");
+        verify(printStream).println("0. Quit");
         verify(printStream).println("1. List library books");
-        verify(printStream).println("2. Quit");
+        verify(printStream).println("2. Check out a book");
+
     }
 
     @Test
     public void shouldAskForInput() throws IOException {
-        when(reader.readLine()).thenReturn("2");
+        when(reader.readLine()).thenReturn("0");
         menu.executeUserInput();
 
         verify(reader).readLine();
@@ -55,15 +56,15 @@ public class MainMenuTest {
 
     @Test
     public void shouldPrintBookListWhenInputIsOne() throws IOException {
-        when(reader.readLine()).thenReturn("1", "2");
+        when(reader.readLine()).thenReturn("1", "0");
         menu.executeUserInput();
 
         verify(biblioteca).printBookList();
     }
 
     @Test
-    public void shouldQuitWhenInputIsTwo() throws IOException {
-        when(reader.readLine()).thenReturn("1", "2");
+    public void shouldQuitWhenInputIsZero() throws IOException {
+        when(reader.readLine()).thenReturn("1", "0");
         menu.executeUserInput();
 
         verify(reader, times(2)).readLine();
@@ -71,7 +72,7 @@ public class MainMenuTest {
 
     @Test
     public void shouldNotifyUserWhenInputIsInvalid() throws IOException {
-        when(reader.readLine()).thenReturn("", "1", "2");
+        when(reader.readLine()).thenReturn("", "1", "0");
         menu.executeUserInput();
 
         verify(printStream).println("Select a valid option!");
@@ -79,23 +80,27 @@ public class MainMenuTest {
 
     @Test
     public void shouldAskUserAgainWhenInputIsValid() throws Exception {
-        when(reader.readLine()).thenReturn("1", "2");
+        when(reader.readLine()).thenReturn("1", "0");
         menu.executeUserInput();
 
         verify(biblioteca).printBookList();
         verify(printStream).println("Please choose one of the following options: ");
+        verify(printStream).println("0. Quit");
         verify(printStream).println("1. List library books");
-        verify(printStream).println("2. Quit");
+        verify(printStream).println("2. Check out a book");
         verify(reader, times(2)).readLine();
     }
 
     @Test
     public void shouldAskUserAgainWhenInputIsInvalid() throws Exception {
-        when(reader.readLine()).thenReturn("", "2");
+        when(reader.readLine()).thenReturn("", "0");
         menu.executeUserInput();
 
         verify(reader, times(2)).readLine();
     }
 
+    @Test
+    public void should() throws Exception {
 
+    }
 }

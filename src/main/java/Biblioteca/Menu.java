@@ -4,12 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
-public class MainMenu {
+public class Menu {
+
     private BufferedReader reader;
     private PrintStream printStream;
     private Biblioteca biblioteca;
 
-    public MainMenu(PrintStream printStream, BufferedReader input, Biblioteca biblioteca) {
+    public Menu(PrintStream printStream, BufferedReader input, Biblioteca biblioteca) {
         this.printStream = printStream;
         this.biblioteca = biblioteca;
         this.reader = input;
@@ -28,14 +29,16 @@ public class MainMenu {
 
     public void printOptionsList() {
         printStream.println("Please choose one of the following options: ");
+        printStream.println("0. Quit");
         printStream.println("1. List library books");
-        printStream.println("2. Quit");
+        printStream.println("2. Check out a book");
+
     }
 
     public void executeUserInput() {
         String choice = getUserInput();
 
-        while(!choice.equals("2")) {
+        while(!choice.equals("0")) {
             if (choice.equals("1")) {
                 biblioteca.printBookList();
             } else {
