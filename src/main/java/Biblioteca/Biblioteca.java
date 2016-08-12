@@ -1,26 +1,28 @@
 package Biblioteca;
 
-import java.io.PrintStream;
-import java.util.ArrayList;
-
 public class Biblioteca {
 
-    private ArrayList<Book> bookList;
-    private PrintStream printStream;
+    private BookList availableBookList;
+    private BookList checkedOutBookList;
 
-    public Biblioteca(PrintStream printStream, ArrayList<Book> bookList){
+    public Biblioteca(BookList availableBookList, BookList checkedOutBookList){
 
-        this.printStream = printStream;
-        this.bookList = bookList;
+        this.availableBookList = availableBookList;
+        this.checkedOutBookList = checkedOutBookList;
     }
 
-    public void printBookList() {
-        if (this.bookList.isEmpty()) {
-            printStream.println("There are no books.");
-        }
+    public void printAvailableBooks() {
+        availableBookList.printBookList();
+    }
 
-        for (Book book : bookList) {
-            book.printBookDetails();
+    public void printCheckedOutBooks() {
+        checkedOutBookList.printBookList();
+    }
+
+    public void checkOutBook(String title) {
+        if(availableBookList.containsBook(title)){
+            Book bookToCheckOut = availableBookList.removeBook(title);
+            checkedOutBookList.addBook(bookToCheckOut);
         }
     }
 }

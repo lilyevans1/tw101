@@ -6,45 +6,45 @@ import org.junit.Test;
 import static org.mockito.Mockito.*;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
 
 public class BibliotecaTests {
-    private PrintStream printstream;
+    private PrintStream printStream;
     private Book book1;
     private Book book2;
-    private ArrayList<Book> books;
     private Biblioteca biblioteca;
+    private BookList availableBookList;
+    private BookList checkedOutBookList;
 
 
     @Before
     public void setup() {
-        printstream = mock(PrintStream.class);
+        printStream = mock(PrintStream.class);
         book1 = mock(Book.class);
         book2 = mock(Book.class);
-        books = new ArrayList<Book>();
-        biblioteca = new Biblioteca(printstream, books);
+        availableBookList = mock(BookList.class);
+        checkedOutBookList = mock(BookList.class);
+        biblioteca = new Biblioteca(availableBookList, checkedOutBookList);
     }
 
     @Test
-    public void shouldPrintEmptyStringWhenLibraryEmpty() {
-        biblioteca.printBookList();
-        verify(printstream).println("There are no books.");
+    public void shouldCheckBookAvailabilityWhenUserInputsTitle() throws Exception {
+        biblioteca.checkOutBook("HP 1");
+        verify(availableBookList).containsBook("HP 1");
     }
 
     @Test
-    public void shouldPrintOneBookWhenLibraryHasOneBook() {
-        books.add(book1);
-        biblioteca.printBookList();
-        verify(book1).printBookDetails();
+    public void shouldRemoveBookFromAvailableListWhenCheckedOut() throws Exception {
+        when(availableBookList.containsBook("HP 1")).thenReturn(true);
+        biblioteca.checkOutBook("HP 1");
+        verify(availableBookList).removeBook("HP 1");
+
     }
 
     @Test
-    public void shouldPrintTwoBooksWhenLibraryHasTwoBooks() {
-        books.add(book1);
-        books.add(book1);
-        biblioteca.printBookList();
-        verify(book1, times(2)).printBookDetails();
+    public void shouldMoveBookToCheckedOutList() throws Exception {
+        when(availableBookList.containsBook("HP 1")).thenReturn(true);
+        when(availableBookList.removeBook("HP 1")).thenReturn(book1);
+        biblioteca.checkOutBook("HP 1");
+        verify(checkedOutBookList).addBook(book1);
     }
-
-
 }

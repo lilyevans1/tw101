@@ -24,7 +24,12 @@ public class Book {
         }
     }
 
-    /*public void checkOut() {
-        checkedOut = true;
-    }*/
+    public boolean thisIsMyTitle(String title) {
+        return title.equals(this.title);
+    }
+
+    public static void main(String[] args) {
+
+    }
+
 }

@@ -35,13 +35,19 @@ public class Menu {
 
     }
 
-    public void executeUserInput() {
+    public void executeUserInput() throws IOException {
         String choice = getUserInput();
 
         while(!choice.equals("0")) {
             if (choice.equals("1")) {
-                biblioteca.printBookList();
-            } else {
+                biblioteca.printAvailableBooks();
+            }
+            else if (choice.equals("2")){
+                printStream.println("Please enter a book title.");
+                String title = reader.readLine();
+                biblioteca.checkOutBook(title);
+            }
+            else {
                 printStream.println("Select a valid option!");
             }
 

@@ -59,7 +59,7 @@ public class MenuTest {
         when(reader.readLine()).thenReturn("1", "0");
         menu.executeUserInput();
 
-        verify(biblioteca).printBookList();
+        verify(biblioteca).printAvailableBooks();
     }
 
     @Test
@@ -83,7 +83,7 @@ public class MenuTest {
         when(reader.readLine()).thenReturn("1", "0");
         menu.executeUserInput();
 
-        verify(biblioteca).printBookList();
+        verify(biblioteca).printAvailableBooks();
         verify(printStream).println("Please choose one of the following options: ");
         verify(printStream).println("0. Quit");
         verify(printStream).println("1. List library books");
@@ -100,7 +100,33 @@ public class MenuTest {
     }
 
     @Test
-    public void should() throws Exception {
+    public void shouldAllowUserToCheckoutWhenTwoSelected() throws Exception {
+        when(reader.readLine()).thenReturn("2", "0");
+        menu.executeUserInput();
 
+        verify(printStream, never()).println("Select a valid option!");
+    }
+
+    @Test
+    public void shouldCheckoutBookWhenTwoSelected() throws Exception {
+        when(reader.readLine()).thenReturn("2", "0");
+        menu.executeUserInput();
+
+        verify(biblioteca).checkOutBook("");
+
+    }
+
+    @Test
+    public void shouldPromptUserToEnterTitleOfCheckedOutBook() throws Exception {
+        when(reader.readLine()).thenReturn("2", "0");
+        menu.executeUserInput();
+        verify(printStream).println("Please enter a book title.");
+    }
+
+    @Test
+    public void shouldCheckUserInputReceivedWhenOptionTwoSelected() throws Exception {
+        when(reader.readLine()).thenReturn("2", "0");
+        menu.executeUserInput();
+        verify(reader, times(3)).readLine();
     }
 }

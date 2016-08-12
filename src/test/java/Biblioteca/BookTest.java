@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import java.io.PrintStream;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class BookTest {
@@ -31,17 +33,18 @@ public class BookTest {
         verify(printStream).println(getExpectedDetails());
     }
 
-    @Test
-    public void shouldNotPrintBookDetailsWhenCheckedOut() {
-        book.checkOut();
-
-        book.printBookDetails();
-
-        verify(printStream, never()).println(getExpectedDetails());
-    }
-
     public String getExpectedDetails() {
         return title + " | " + author + " | " + yearPublished;
+    }
+
+    @Test
+    public void shouldReturnFalseWhenTitleIsNotMyTitle() throws Exception {
+        assertFalse(book.thisIsMyTitle("Not Book Name"));
+    }
+
+    @Test
+    public void shouldReturnTrueWhenTitleIsMyTitle() throws Exception {
+        assertTrue(book.thisIsMyTitle("Book Name"));
     }
 
 }

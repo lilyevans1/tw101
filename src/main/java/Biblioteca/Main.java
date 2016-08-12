@@ -12,19 +12,21 @@ public class Main {
         PrintStream printStream = System.out;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        Biblioteca biblioteca = setupBiblioteca(printStream);
+        Book hp1 = new Book("HP 1", "JK Row", "1997", printStream);
+        Book hp2 = new Book("HP 2", "JK Row", "1997", printStream);
+        Book hp3 = new Book("HP 3", "JK Row", "1997", printStream);
+
+        BookList availableBooks = new BookList(printStream);
+        BookList checkedOutBooks = new BookList(printStream);
+
+        availableBooks.addBook(hp1);
+        availableBooks.addBook(hp2);
+        availableBooks.addBook(hp3);
+
+        Biblioteca biblioteca = new Biblioteca(availableBooks, checkedOutBooks);
 
         Menu menu = new Menu(printStream, reader, biblioteca);
         menu.run();
-    }
-
-    private static Biblioteca setupBiblioteca(PrintStream printStream) {
-        ArrayList<Book> books = new ArrayList<Book>();
-        books.add(new Book("HP 1", "JK Row", "1997", printStream));
-        books.add(new Book("HP 2", "JK Row", "1999", printStream));
-        books.add(new Book("HP 3", "JK Row", "2003", printStream));
-
-        return new Biblioteca(System.out, books);
     }
 
 }
