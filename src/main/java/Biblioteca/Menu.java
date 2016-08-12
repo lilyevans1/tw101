@@ -32,6 +32,7 @@ public class Menu {
         printStream.println("0. Quit");
         printStream.println("1. List library books");
         printStream.println("2. Check out a book");
+        printStream.println("3. Check in a book");
 
     }
 
@@ -46,6 +47,10 @@ public class Menu {
                 printStream.println("Please enter a book title.");
                 String title = reader.readLine();
                 biblioteca.checkOutBook(title);
+            } else if (choice.equals("3")){
+                printStream.println("Please enter a book title.");
+                String title = reader.readLine();
+                biblioteca.checkInBook(title);
             }
             else {
                 printStream.println("Select a valid option!");

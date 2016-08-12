@@ -28,7 +28,6 @@ public class BookListTest {
     public void shouldNotBeAvailableWhenCheckedOut() throws Exception {
         availableBookList.removeBook("HP 1");
         assertFalse(availableBookList.containsBook("HP 1"));
-
     }
 
     @Test

@@ -109,7 +109,7 @@ public class MenuTest {
 
     @Test
     public void shouldCheckoutBookWhenTwoSelected() throws Exception {
-        when(reader.readLine()).thenReturn("2", "0");
+        when(reader.readLine()).thenReturn("2", "", "0");
         menu.executeUserInput();
 
         verify(biblioteca).checkOutBook("");
@@ -128,5 +128,12 @@ public class MenuTest {
         when(reader.readLine()).thenReturn("2", "0");
         menu.executeUserInput();
         verify(reader, times(3)).readLine();
+    }
+
+    @Test
+    public void shouldCheckinBookWhenThreeSelected() throws Exception {
+        when(reader.readLine()).thenReturn("3", "", "0");
+        menu.executeUserInput();
+        verify(biblioteca).checkInBook("");
     }
 }
