@@ -25,20 +25,26 @@ public class MenuTest {
     }
 
     @Test
-    public void shouldPrintWelcome() {
-        menu.printWelcome();
+    public void shouldPrintWelcomeOnStart() throws IOException {
+        when(reader.readLine()).thenReturn("0");
+        menu.start();
+
         verify(printStream).println("Welcome to the Biblioteca!");
     }
 
     @Test
-    public void shouldPrintGoodbye() {
-        menu.printGoodbye();
+    public void shouldPrintGoodbyeOnQuit() throws IOException {
+        when(reader.readLine()).thenReturn("0");
+        menu.start();
+
         verify(printStream).println("Goodbye!");
     }
 
     @Test
-    public void shouldPrintBookOptions(){
-        menu.printOptionsList();
+    public void shouldPrintBookOptions() throws IOException {
+        when(reader.readLine()).thenReturn("0");
+        menu.start();
+
         verify(printStream).println("Please choose one of the following options: ");
         verify(printStream).println("0. Quit");
         verify(printStream).println("1. List library books");
@@ -49,7 +55,7 @@ public class MenuTest {
     @Test
     public void shouldAskForInput() throws IOException {
         when(reader.readLine()).thenReturn("0");
-        menu.executeUserInput();
+        menu.start();
 
         verify(reader).readLine();
     }
@@ -57,7 +63,7 @@ public class MenuTest {
     @Test
     public void shouldPrintBookListWhenInputIsOne() throws IOException {
         when(reader.readLine()).thenReturn("1", "0");
-        menu.executeUserInput();
+        menu.start();
 
         verify(biblioteca).printAvailableBooks();
     }
@@ -65,7 +71,7 @@ public class MenuTest {
     @Test
     public void shouldQuitWhenInputIsZero() throws IOException {
         when(reader.readLine()).thenReturn("1", "0");
-        menu.executeUserInput();
+        menu.start();
 
         verify(reader, times(2)).readLine();
     }
@@ -73,7 +79,7 @@ public class MenuTest {
     @Test
     public void shouldNotifyUserWhenInputIsInvalid() throws IOException {
         when(reader.readLine()).thenReturn("", "1", "0");
-        menu.executeUserInput();
+        menu.start();
 
         verify(printStream).println("Select a valid option!");
     }
@@ -81,20 +87,15 @@ public class MenuTest {
     @Test
     public void shouldAskUserAgainWhenInputIsValid() throws Exception {
         when(reader.readLine()).thenReturn("1", "0");
-        menu.executeUserInput();
+        menu.start();
 
-        verify(biblioteca).printAvailableBooks();
-        verify(printStream).println("Please choose one of the following options: ");
-        verify(printStream).println("0. Quit");
-        verify(printStream).println("1. List library books");
-        verify(printStream).println("2. Check out a book");
-        verify(reader, times(2)).readLine();
+        verify(printStream, times(2)).println("Please choose one of the following options: ");
     }
 
     @Test
     public void shouldAskUserAgainWhenInputIsInvalid() throws Exception {
         when(reader.readLine()).thenReturn("", "0");
-        menu.executeUserInput();
+        menu.start();
 
         verify(reader, times(2)).readLine();
     }
@@ -102,7 +103,7 @@ public class MenuTest {
     @Test
     public void shouldAllowUserToCheckoutWhenTwoSelected() throws Exception {
         when(reader.readLine()).thenReturn("2", "0");
-        menu.executeUserInput();
+        menu.start();
 
         verify(printStream, never()).println("Select a valid option!");
     }
@@ -110,7 +111,7 @@ public class MenuTest {
     @Test
     public void shouldCheckoutBookWhenTwoSelected() throws Exception {
         when(reader.readLine()).thenReturn("2", "", "0");
-        menu.executeUserInput();
+        menu.start();
 
         verify(biblioteca).checkOutBook("");
 
@@ -119,21 +120,21 @@ public class MenuTest {
     @Test
     public void shouldPromptUserToEnterTitleOfCheckedOutBook() throws Exception {
         when(reader.readLine()).thenReturn("2", "0");
-        menu.executeUserInput();
+        menu.start();
         verify(printStream).println("Please enter a book title.");
     }
 
     @Test
     public void shouldCheckUserInputReceivedWhenOptionTwoSelected() throws Exception {
         when(reader.readLine()).thenReturn("2", "0");
-        menu.executeUserInput();
+        menu.start();
         verify(reader, times(3)).readLine();
     }
 
     @Test
     public void shouldCheckinBookWhenThreeSelected() throws Exception {
         when(reader.readLine()).thenReturn("3", "", "0");
-        menu.executeUserInput();
+        menu.start();
         verify(biblioteca).checkInBook("");
     }
 }

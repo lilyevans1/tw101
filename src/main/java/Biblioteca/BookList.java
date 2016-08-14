@@ -22,21 +22,18 @@ public class BookList {
         return false;
     }
 
-
     public void printBookList() {
         if (books.isEmpty()) {
             printStream.println("There are no books.");
         }
-
         for (Book book : books) {
             book.printBookDetails();
         }
     }
 
-    public void addBook(Book book){
+    public void addBook(Book book) {
         books.add(book);
     }
-
 
     public Book removeBook(String title) {
         for (Book bookChoice : books){

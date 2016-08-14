@@ -9,7 +9,6 @@ public class Biblioteca {
     private PrintStream printStream;
 
     public Biblioteca(BookList availableBookList, BookList checkedOutBookList, PrintStream printStream){
-
         this.availableBookList = availableBookList;
         this.checkedOutBookList = checkedOutBookList;
         this.printStream = printStream;
@@ -17,10 +16,6 @@ public class Biblioteca {
 
     public void printAvailableBooks() {
         availableBookList.printBookList();
-    }
-
-    public void printCheckedOutBooks() {
-        checkedOutBookList.printBookList();
     }
 
     public void checkOutBook(String title) {

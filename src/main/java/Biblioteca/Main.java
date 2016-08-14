@@ -17,7 +17,7 @@ public class Main {
         Biblioteca biblioteca = new Biblioteca(availableBooks, checkedOutBooks, printStream);
 
         Menu menu = new Menu(printStream, reader, biblioteca);
-        menu.run();
+        menu.start();
     }
 
     private static BookList getAvailableBookList(PrintStream printStream) {

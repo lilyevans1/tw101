@@ -16,18 +16,17 @@ public class Menu {
         this.reader = input;
     }
 
-    public void run() throws IOException {
+    public void start() throws IOException {
         printWelcome();
         printOptionsList();
-        executeUserInput();
-        printGoodbye();
+        runUntilQuit();
     }
 
-    public void printWelcome() {
+    private void printWelcome() {
         printStream.println("Welcome to the Biblioteca!");
     }
 
-    public void printOptionsList() {
+    private void printOptionsList() {
         printStream.println("Please choose one of the following options: ");
         printStream.println("0. Quit");
         printStream.println("1. List library books");
@@ -36,29 +35,30 @@ public class Menu {
 
     }
 
-    public void executeUserInput() throws IOException {
+    private void runUntilQuit() throws IOException {
         String choice = getUserInput();
-
         while(!choice.equals("0")) {
-            if (choice.equals("1")) {
-                biblioteca.printAvailableBooks();
-            }
-            else if (choice.equals("2")){
-                printStream.println("Please enter a book title.");
-                String title = reader.readLine();
-                biblioteca.checkOutBook(title);
-            } else if (choice.equals("3")){
-                printStream.println("Please enter a book title.");
-                String title = reader.readLine();
-                biblioteca.checkInBook(title);
-            }
-            else {
-                printStream.println("Select a valid option!");
-            }
-
+            executeUserInput(choice);
             printStream.println();
             printOptionsList();
             choice = getUserInput();
+        }
+        quit();
+    }
+
+    private void executeUserInput(String choice) throws IOException {
+        if (choice.equals("1")) {
+            biblioteca.printAvailableBooks();
+        } else if (choice.equals("2")){
+            printStream.println("Please enter a book title.");
+            String title = reader.readLine();
+            biblioteca.checkOutBook(title);
+        } else if (choice.equals("3")){
+            printStream.println("Please enter a book title.");
+            String title = reader.readLine();
+            biblioteca.checkInBook(title);
+        } else {
+            printStream.println("Select a valid option!");
         }
     }
 
@@ -72,7 +72,7 @@ public class Menu {
         return choice;
     }
 
-    public void printGoodbye() {
+    private void quit() {
         printStream.println("Goodbye!");
     }
 }
