@@ -1,5 +1,3 @@
-package Biblioteca;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +27,7 @@ public class BookTest {
 
     @Test
     public void shouldPrintBookDetails(){
-        book.printBookDetails();
+        book.printDetails();
         verify(printStream).println(getExpectedDetails());
     }
 

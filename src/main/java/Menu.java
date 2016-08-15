@@ -1,5 +1,3 @@
-package Biblioteca;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -29,10 +27,10 @@ public class Menu {
     private void printOptionsList() {
         printStream.println("Please choose one of the following options: ");
         printStream.println("0. Quit");
-        printStream.println("1. List library books");
+        printStream.println("1. List books");
         printStream.println("2. Check out a book");
         printStream.println("3. Check in a book");
-
+        printStream.println("4. List movies");
     }
 
     private void runUntilQuit() throws IOException {
@@ -52,11 +50,13 @@ public class Menu {
         } else if (choice.equals("2")){
             printStream.println("Please enter a book title.");
             String title = reader.readLine();
-            biblioteca.checkOutBook(title);
+            biblioteca.checkOut(title);
         } else if (choice.equals("3")){
             printStream.println("Please enter a book title.");
             String title = reader.readLine();
-            biblioteca.checkInBook(title);
+            biblioteca.checkIn(title);
+        } else if (choice.equals("4")){
+            biblioteca.printAvailableMovies();
         } else {
             printStream.println("Select a valid option!");
         }

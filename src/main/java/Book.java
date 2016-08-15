@@ -1,8 +1,6 @@
-package Biblioteca;
-
 import java.io.PrintStream;
 
-public class Book {
+public class Book implements MediaItem {
 
     private String title;
     private String author;
@@ -16,17 +14,12 @@ public class Book {
         this.printStream = printStream;
     }
 
-    public void printBookDetails() {
-
+    public void printDetails() {
         printStream.println(title + " | " + author + " | " + yearPublished);
     }
 
     public boolean thisIsMyTitle(String title) {
         return title.equals(this.title);
-    }
-
-    public static void main(String[] args) {
-
     }
 
 }

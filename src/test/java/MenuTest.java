@@ -1,5 +1,3 @@
-package Biblioteca;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,10 +44,6 @@ public class MenuTest {
         menu.start();
 
         verify(printStream).println("Please choose one of the following options: ");
-        verify(printStream).println("0. Quit");
-        verify(printStream).println("1. List library books");
-        verify(printStream).println("2. Check out a book");
-
     }
 
     @Test
@@ -61,7 +55,7 @@ public class MenuTest {
     }
 
     @Test
-    public void shouldPrintBookListWhenInputIsOne() throws IOException {
+    public void shouldPrintBookListWhenOneSelected() throws IOException {
         when(reader.readLine()).thenReturn("1", "0");
         menu.start();
 
@@ -69,7 +63,7 @@ public class MenuTest {
     }
 
     @Test
-    public void shouldQuitWhenInputIsZero() throws IOException {
+    public void shouldQuitWhenZeroSelected() throws IOException {
         when(reader.readLine()).thenReturn("1", "0");
         menu.start();
 
@@ -113,7 +107,7 @@ public class MenuTest {
         when(reader.readLine()).thenReturn("2", "", "0");
         menu.start();
 
-        verify(biblioteca).checkOutBook("");
+        verify(biblioteca).checkOut("");
 
     }
 
@@ -135,6 +129,13 @@ public class MenuTest {
     public void shouldCheckinBookWhenThreeSelected() throws Exception {
         when(reader.readLine()).thenReturn("3", "", "0");
         menu.start();
-        verify(biblioteca).checkInBook("");
+        verify(biblioteca).checkIn("");
+    }
+
+    @Test
+    public void shouldListAvailableMoviesWhenFourSelected() throws Exception {
+        when(reader.readLine()).thenReturn("4", "0");
+        menu.start();
+        verify(biblioteca).printAvailableMovies();
     }
 }

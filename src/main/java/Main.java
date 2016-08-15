@@ -1,6 +1,3 @@
-package Biblioteca;
-
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,26 +8,28 @@ public class Main {
         PrintStream printStream = System.out;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        BookList checkedOutBooks = new BookList(printStream);
-        BookList availableBooks = getAvailableBookList(printStream);
+        MediaList checkedOutItems = new MediaList(printStream);
+        MediaList availableItems = getAvailableItemList(printStream);
 
-        Biblioteca biblioteca = new Biblioteca(availableBooks, checkedOutBooks, printStream);
+        Biblioteca biblioteca = new Biblioteca(availableItems, checkedOutItems, printStream);
 
         Menu menu = new Menu(printStream, reader, biblioteca);
         menu.start();
     }
 
-    private static BookList getAvailableBookList(PrintStream printStream) {
+    private static MediaList getAvailableItemList(PrintStream printStream) {
         Book hp1 = new Book("HP 1", "JK Row", "1997", printStream);
         Book hp2 = new Book("HP 2", "JK Row", "1997", printStream);
         Book hp3 = new Book("HP 3", "JK Row", "1997", printStream);
+        Movie hp4 = new Movie("HP 4", "1997", "Director", "10", printStream);
 
-        BookList availableBooks = new BookList(printStream);
+        MediaList list = new MediaList(printStream);
 
-        availableBooks.addBook(hp1);
-        availableBooks.addBook(hp2);
-        availableBooks.addBook(hp3);
-        return availableBooks;
+        list.addItem(hp1);
+        list.addItem(hp2);
+        list.addItem(hp3);
+        list.addItem(hp4);
+        return list;
     }
 
 }
